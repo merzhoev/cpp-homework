@@ -146,14 +146,16 @@ string convert_number_to_text(int count) {
 }
 
 int ask_range(int from, int to) {
-  int count = 0;
+  optional<int> count;
 
-  while (!in_range(count, from, to)) {
+  while (!count.has_value() || !in_range(*count, from, to)) {
     cout << "Введите целое число от " << from << " до " << to << ":" << endl;
-    cin >> count;
+    int input;
+    cin >> input;
+    count = input;
   }
 
-  return count;
+  return *count;
 }
 
 Currency ask_currency() {
